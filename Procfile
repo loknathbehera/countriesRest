@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -jar target/countriesRest-0.0.1-SNAPSHOT.jar -Dserver.port=0
+web: java $JAVA_OPTS -Dserver.port=$PORT -jar target/countriesRest-0.0.1-SNAPSHOT.jar
