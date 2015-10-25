@@ -1,31 +1,27 @@
 package countriesRest.api.countries.services;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
+
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
+
 import countriesRest.api.beans.Countries;
 import countriesRest.api.beans.Country;
 
+@Component
 public class CountryService {
 	private static final Logger LOG = Logger.getLogger(CountryService.class);
 
-	private static CountryService countryService;
 	private static List<Country> countries;
 
 	private CountryService() {
 		initialize();
-	}
-
-	public static CountryService getInstance() throws IOException {
-		if (countryService == null) {
-			countryService = new CountryService();
-		}
-		return countryService;
 	}
 
 	private void initialize() {
@@ -47,6 +43,7 @@ public class CountryService {
 	}
 
 	public List<Country> getAll() {
+		LOG.debug("Countries size " + countries.size());
 		return countries;
 	}
 
