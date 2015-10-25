@@ -1,11 +1,13 @@
 package countriesRest.api.domains;
 
+import org.springframework.http.HttpStatus;
+
 public class ResponseEntity {
 
-	private final int status;
+	private final HttpStatus status;
 	private final String message;
 
-	public ResponseEntity(int status, String message) {
+	public ResponseEntity(HttpStatus status, String message) {
 		this.status = status;
 		this.message = message;
 	}
@@ -14,7 +16,7 @@ public class ResponseEntity {
 		return message;
 	}
 
-	public int getStatus() {
+	public HttpStatus getStatus() {
 		return status;
 	}
 
