@@ -47,4 +47,27 @@ public class CountryService {
 		return countries;
 	}
 
+	public List<Country> getByAlpha(String alphas) {
+		List<Country> result = new ArrayList<Country>();
+		String alphaArr[] = alphas.split(";");
+		for (int i = 0; i < alphaArr.length; i++) {
+			int alphaLength = alphaArr[i].length();
+			String alpha = alphaArr[i];
+			for (Country country : countries) {
+				if (alphaLength == 2) {
+					if (country.getCca2().toLowerCase().equals(alpha.toLowerCase())) {
+						result.add(country);
+						break;
+					}
+				} else if (alphaLength == 3) {
+					if (country.getCca3().toLowerCase().equals(alpha.toLowerCase())) {
+						result.add(country);
+						break;
+					}
+				}
+			}
+		}
+		return result;
+	}
+
 }
