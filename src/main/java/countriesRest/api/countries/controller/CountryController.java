@@ -2,8 +2,6 @@ package countriesRest.api.countries.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -66,10 +64,10 @@ public class CountryController {
 	}
 
 	@RequestMapping("name/{name}")
-	public Object getByName(@PathParam("name") String name, @RequestParam("fullText") boolean fullText) {
+	public Object getByName(@PathVariable("name") String name, @RequestParam("fulltext") boolean fulltext) {
 		LOG.info("Getting by name " + name);
 		try {
-			List<Country> countries = countryService.getByName(name, fullText);
+			List<Country> countries = countryService.getByName(name, fulltext);
 			if (!countries.isEmpty()) {
 				return countries;
 			}
@@ -81,7 +79,7 @@ public class CountryController {
 	}
 
 	@RequestMapping("callingcode/{callingcode}")
-	public Object getByCallingCode(@PathParam("callingcode") String callingcode) {
+	public Object getByCallingCode(@PathVariable("callingcode") String callingcode) {
 		LOG.info("Getting by calling code " + callingcode);
 		try {
 			List<Country> countries = countryService.getByCallingcode(callingcode);
@@ -96,7 +94,7 @@ public class CountryController {
 	}
 
 	@RequestMapping("capital/{capital}")
-	public Object getByCapital(@PathParam("capital") String capital) {
+	public Object getByCapital(@PathVariable("capital") String capital) {
 		LOG.info("Getting by capital " + capital);
 		try {
 			List<Country> countries = countryService.getByCapital(capital);
@@ -111,7 +109,7 @@ public class CountryController {
 	}
 
 	@RequestMapping("region/{region}")
-	public Object getByRegion(@PathParam("region") String region) {
+	public Object getByRegion(@PathVariable("region") String region) {
 		LOG.info("Getting by region " + region);
 		try {
 			List<Country> countries = countryService.getByRegion(region);
@@ -126,7 +124,7 @@ public class CountryController {
 	}
 
 	@RequestMapping("subregion/{subregion}")
-	public Object getBySubregion(@PathParam("subregion") String subregion) {
+	public Object getBySubregion(@PathVariable("subregion") String subregion) {
 		LOG.info("Getting by region " + subregion);
 		try {
 			List<Country> countries = countryService.getBySubregion(subregion);
@@ -141,7 +139,7 @@ public class CountryController {
 	}
 
 	@RequestMapping("lang/{lang}")
-	public Object getByLanguage(@PathParam("lang") String language) {
+	public Object getByLanguage(@PathVariable("lang") String language) {
 		LOG.info("Getting by language " + language);
 		try {
 			List<Country> countries = countryService.getByLanguage(language);
