@@ -2,56 +2,69 @@ package countriesRest.api.beans;
 
 import java.util.List;
 
+import org.jsondoc.core.annotation.ApiObject;
+import org.jsondoc.core.annotation.ApiObjectField;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@ApiObject
 public class Country {
 
+	@ApiObjectField
 	private String name;
-	
+
+	@ApiObjectField
 	@JsonProperty("topLevelDomain")
 	private List<String> tld;
-	
+
+	@ApiObjectField
 	@JsonProperty("alpha2Code")
 	private String cca2;
-	
+
+	@ApiObjectField
 	@JsonProperty("alpha3Code")
 	private String cca3;
-	
+
+	@ApiObjectField
 	@JsonProperty("currencies")
 	private List<String> currency;
-	
+
 	@JsonProperty("callingCodes")
 	private List<String> callingCode;
-	
+
 	private String capital;
-	
+
 	private List<String> altSpellings;
-	
+
 	private String relevance;
-	
+
+	@ApiObjectField
 	private String region;
-	
+
+	@ApiObjectField
 	private String subregion;
-	
+
+	@ApiObjectField
 	@JsonProperty("languages")
 	private List<String> languageCodes;
-	
+
 	private CountryTranslations translations;
-	
+
+	@ApiObjectField
 	private Integer population;
-	
+
 	private List<Double> latlng;
-	
+
 	private String demonym;
-	
+
 	private Double area;
 
 	private Double gini;
 
 	private List<String> timezones;
-	
+
 	private List<String> borders;
-	
+
 	private String nativeName;
 
 	public String getName() {
@@ -222,5 +235,4 @@ public class Country {
 		this.nativeName = nativeName;
 	}
 
-	
 }

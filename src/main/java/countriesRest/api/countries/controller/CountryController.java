@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiAuthNone;
 import org.jsondoc.core.annotation.ApiMethod;
+import org.jsondoc.core.annotation.ApiPathParam;
 import org.jsondoc.core.annotation.ApiVersion;
 import org.jsondoc.core.pojo.ApiStage;
 import org.jsondoc.core.pojo.ApiVisibility;
@@ -24,7 +25,7 @@ import countriesRest.api.beans.Country;
 import countriesRest.api.countries.services.CountryService;
 import countriesRest.api.domains.ResponseEntity;
 
-@Api(name = "Country services", description = "Methods for managing cities", group = "Geography", visibility = ApiVisibility.PUBLIC, stage = ApiStage.RC)
+@Api(name = "Country services", description = "Geogeric Information can be available ", group = "Countrified", visibility = ApiVisibility.PUBLIC, stage = ApiStage.PRE_ALPHA)
 @ApiVersion(since = "1.0", until = "2.12")
 @ApiAuthNone
 @RestController
@@ -35,16 +36,18 @@ public class CountryController {
 	@Autowired
 	CountryService countryService;
 
-	@ApiMethod
+	@ApiMethod(description = "Get all contries")
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody Object getCountries() {
 		LOG.info("Getting all Countries");
 		return countryService.getAll();
 	}
 
-	@ApiMethod
+	@ApiMethod(description = "Get by country code")
 	@RequestMapping(value = "/alpha{codes}", method = RequestMethod.GET)
-	public @ResponseBody Object getByAlpha(@RequestParam(value = "codes") String codelist) {
+
+	public @ResponseBody Object getByAlpha(
+			@ApiPathParam(description = "This is alpha code of a country") @RequestParam(value = "codes") String codelist) {
 
 		LOG.info("Getting by alpha " + codelist);
 		try {
@@ -59,9 +62,10 @@ public class CountryController {
 		}
 	}
 
-	@ApiMethod
-	@RequestMapping("/currency/{currency}")
-	public Object getByCurrency(@PathVariable("currency") String currency) {
+	@ApiMethod(description = "Search By Country")
+	@RequestMapping(value = "/currency/{currency}", method = RequestMethod.GET)
+	public Object getByCurrency(
+			@ApiPathParam(description = "Currency of a country") @PathVariable("currency") String currency) {
 		LOG.info("Getting by currency " + currency);
 		try {
 			List<Country> countries = countryService.getByCurrency(currency);
@@ -75,8 +79,10 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("name/{name}")
-	public Object getByName(@PathVariable("name") String name, @RequestParam("fulltext") boolean fulltext) {
+	@ApiMethod(description = "Search By Name")
+	@RequestMapping(value = "name/{name}", method = RequestMethod.GET)
+	public Object getByName(@ApiPathParam(description = "Name of the country") @PathVariable("name") String name,
+			@RequestParam("fulltext") boolean fulltext) {
 		LOG.info("Getting by name " + name);
 		try {
 			List<Country> countries = countryService.getByName(name, fulltext);
@@ -90,8 +96,10 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("/callingcode/{callingcode}")
-	public Object getByCallingCode(@PathVariable("callingcode") String callingcode) {
+	@ApiMethod(description = "Get by Calling code")
+	@RequestMapping(value = "/callingcode/{callingcode}")
+	public Object getByCallingCode(
+			@ApiPathParam(description = "Calling code of the country") @PathVariable("callingcode") String callingcode) {
 		LOG.info("Getting by calling code " + callingcode);
 		try {
 			List<Country> countries = countryService.getByCallingcode(callingcode);
@@ -105,8 +113,10 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("/capital/{capital}")
-	public Object getByCapital(@PathVariable("capital") String capital) {
+	@ApiMethod(description = "Search by Capital city ")
+	@RequestMapping(value = "/capital/{capital}", method = RequestMethod.GET)
+	public Object getByCapital(
+			@ApiPathParam(description = "Capital city of the country") @PathVariable("capital") String capital) {
 		LOG.info("Getting by capital " + capital);
 		try {
 			List<Country> countries = countryService.getByCapital(capital);
@@ -120,8 +130,9 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("/region/{region}")
-	public Object getByRegion(@PathVariable("region") String region) {
+	@ApiMethod(description = "Search By region")
+	@RequestMapping(value = "/region/{region}", method = RequestMethod.GET)
+	public Object getByRegion(@ApiPathParam(description = "Region") @PathVariable("region") String region) {
 		LOG.info("Getting by region " + region);
 		try {
 			List<Country> countries = countryService.getByRegion(region);
@@ -135,8 +146,9 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("/subregion/{subregion}")
-	public Object getBySubregion(@PathVariable("subregion") String subregion) {
+	@ApiMethod(description = "Search By Subregion")
+	@RequestMapping(value = "/subregion/{subregion}", method = RequestMethod.GET)
+	public Object getBySubregion(@ApiPathParam(description = "Subregion") @PathVariable("subregion") String subregion) {
 		LOG.info("Getting by region " + subregion);
 		try {
 			List<Country> countries = countryService.getBySubregion(subregion);
@@ -150,8 +162,10 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("/lang/{lang}")
-	public Object getByLanguage(@PathVariable("lang") String language) {
+	@ApiMethod(description = "Search By Language")
+	@RequestMapping(value = "/lang/{lang}", method = RequestMethod.GET)
+	public Object getByLanguage(
+			@ApiPathParam(description = "Language of the country") @PathVariable("lang") String language) {
 		LOG.info("Getting by language " + language);
 		try {
 			List<Country> countries = countryService.getByLanguage(language);
@@ -169,5 +183,4 @@ public class CountryController {
 		Gson gson = new Gson();
 		return gson.toJson(new ResponseEntity(status, status.toString()));
 	}
-
 }

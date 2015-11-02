@@ -13,5 +13,5 @@ public class Countries {
 	public void setCountries(List<Country> countries) {
 		this.countries = countries;
 	}
-	
+
 }
