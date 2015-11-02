@@ -3,6 +3,12 @@ package countriesRest.api.countries.controller;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.jsondoc.core.annotation.Api;
+import org.jsondoc.core.annotation.ApiAuthNone;
+import org.jsondoc.core.annotation.ApiMethod;
+import org.jsondoc.core.annotation.ApiVersion;
+import org.jsondoc.core.pojo.ApiStage;
+import org.jsondoc.core.pojo.ApiVisibility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,21 +24,26 @@ import countriesRest.api.beans.Country;
 import countriesRest.api.countries.services.CountryService;
 import countriesRest.api.domains.ResponseEntity;
 
+@Api(name = "Country services", description = "Methods for managing cities", group = "Geography", visibility = ApiVisibility.PUBLIC, stage = ApiStage.RC)
+@ApiVersion(since = "1.0", until = "2.12")
+@ApiAuthNone
 @RestController
-@RequestMapping(value = "rest", produces = { "application/json" })
+@RequestMapping(value = "/rest", produces = { "application/json" })
 public class CountryController {
 	private static final Logger LOG = Logger.getLogger(CountryController.class);
 
 	@Autowired
 	CountryService countryService;
 
-	@RequestMapping(value = "all", method = RequestMethod.GET)
+	@ApiMethod
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public @ResponseBody Object getCountries() {
 		LOG.info("Getting all Countries");
 		return countryService.getAll();
 	}
 
-	@RequestMapping(value = "alpha{codes}", method = RequestMethod.GET)
+	@ApiMethod
+	@RequestMapping(value = "/alpha{codes}", method = RequestMethod.GET)
 	public @ResponseBody Object getByAlpha(@RequestParam(value = "codes") String codelist) {
 
 		LOG.info("Getting by alpha " + codelist);
@@ -48,7 +59,8 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("currency/{currency}")
+	@ApiMethod
+	@RequestMapping("/currency/{currency}")
 	public Object getByCurrency(@PathVariable("currency") String currency) {
 		LOG.info("Getting by currency " + currency);
 		try {
@@ -78,7 +90,7 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("callingcode/{callingcode}")
+	@RequestMapping("/callingcode/{callingcode}")
 	public Object getByCallingCode(@PathVariable("callingcode") String callingcode) {
 		LOG.info("Getting by calling code " + callingcode);
 		try {
@@ -93,7 +105,7 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("capital/{capital}")
+	@RequestMapping("/capital/{capital}")
 	public Object getByCapital(@PathVariable("capital") String capital) {
 		LOG.info("Getting by capital " + capital);
 		try {
@@ -108,7 +120,7 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("region/{region}")
+	@RequestMapping("/region/{region}")
 	public Object getByRegion(@PathVariable("region") String region) {
 		LOG.info("Getting by region " + region);
 		try {
@@ -123,7 +135,7 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("subregion/{subregion}")
+	@RequestMapping("/subregion/{subregion}")
 	public Object getBySubregion(@PathVariable("subregion") String subregion) {
 		LOG.info("Getting by region " + subregion);
 		try {
@@ -138,7 +150,7 @@ public class CountryController {
 		}
 	}
 
-	@RequestMapping("lang/{lang}")
+	@RequestMapping("/lang/{lang}")
 	public Object getByLanguage(@PathVariable("lang") String language) {
 		LOG.info("Getting by language " + language);
 		try {
