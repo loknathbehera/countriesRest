@@ -42,6 +42,14 @@ public class CountryController {
 		LOG.info("Getting all Countries");
 		return countryService.getAll();
 	}
+	
+	@ApiMethod(description = "Get all contries name and codes")
+	@RequestMapping(value = "/allcodes", method = RequestMethod.GET)
+	public @ResponseBody Object getCountriesNameAndCodes() {
+		LOG.info("Getting all Countries Name and Codes");
+		return countryService.getAllNameCode();
+	}
+
 
 	@ApiMethod(description = "Get by country code")
 	@RequestMapping(value = "/alpha{codes}", method = RequestMethod.GET)
