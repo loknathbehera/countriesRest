@@ -16,6 +16,7 @@ import com.google.gson.stream.JsonReader;
 
 import countriesRest.api.beans.Countries;
 import countriesRest.api.beans.Country;
+import countriesRest.api.beans.CountryNameCode;
 import countriesRest.api.domains.ICountryRestSymbols;
 
 @Component
@@ -50,6 +51,23 @@ public class CountryService {
 		LOG.debug("Countries size " + countries.size());
 		return countries;
 	}
+	
+	public List<CountryNameCode> getAllNameCode() {
+		
+		List<CountryNameCode> countryNameCodes=new ArrayList<CountryNameCode>();
+		CountryNameCode countryNameCode;
+		for (Country country : countries) {
+		 countryNameCode=new CountryNameCode();
+		 
+	     countryNameCode.setName(country.getName());
+	     countryNameCode.setCca2(country.getCca2());
+		 countryNameCodes.add(countryNameCode);
+		
+		}
+		return countryNameCodes;
+	}
+
+	
 
 	public Country getByAlpha(String alpha) {
 		int alphaLength = alpha.length();
